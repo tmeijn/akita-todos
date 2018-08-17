@@ -1,0 +1,14 @@
+{
+  "favorites.sortDirection": "ASC",
+  "favorites.groupsFirst": true,
+  "favorites.root": [
+    {
+      "type": "Directory",
+      "name": "d:\\WebDev\\__TUTORIALS\\Akita-resources\\akita-todo\\src\\app\\todos",
+      "parent_id": null,
+      "workspacePath": "src\\app\\todos",
+      "id": "a20Gq81FtLQIwX5m"
+    }
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}

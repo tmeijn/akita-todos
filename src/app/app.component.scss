@@ -1,0 +1,9 @@
+.grid {
+  display: grid;
+
+  grid-template-columns: 1fr 45rem 1fr; 
+}
+
+.content {
+  grid-column: 2 / 3;
+}
