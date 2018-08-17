@@ -6,7 +6,7 @@ import { Todo } from './state/todo.model';
   template: `
     <div class="panel">
       <p class="panel-heading">Current Todos</p>
-      <app-todo *ngFor="let todo of todos" [todo]="todo"></app-todo>
+      <app-todo *ngFor="let todo of todos; last as isLast" [lastItem]="isLast" [todo]="todo"></app-todo>
     </div>
   `,
   styles: []

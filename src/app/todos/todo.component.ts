@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-todo',
   template: `
-  <label class="panel-block">
+  <label class="panel-block text" [ngStyle]="!astItem && { 'border-top': 'none' }">
     <input type="checkbox">
     {{ todo.title }}
   </label>
@@ -13,6 +13,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TodoComponent implements OnInit {
   @Input() todo: Todo;
+  @Input() lastItem: boolean;
 
   constructor() { }
 

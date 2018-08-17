@@ -19,6 +19,8 @@ export class TodosPageComponent implements OnInit {
   }
 
   addTodo(input: HTMLInputElement) {
+    // tslint:disable-next-line:curly
+    if (input.value.length === 0) return;
     this.todosService.add(input.value);
     input.value = '';
   }
