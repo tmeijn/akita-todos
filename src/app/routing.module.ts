@@ -1,7 +1,10 @@
+import { TodoComponent } from './todos/todo.component';
+import { TodosComponent } from './todos/todos.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TodosPageComponent } from './todos/todos-page/todos-page.component';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -16,8 +19,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TodosPageComponent],
-  imports: [RouterModule.forRoot(routes)],
+  declarations: [TodosPageComponent, TodosComponent, TodoComponent],
+  imports: [RouterModule.forRoot(routes), CommonModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

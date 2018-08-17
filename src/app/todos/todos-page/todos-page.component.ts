@@ -1,5 +1,8 @@
+import { TodosQuery } from './../state/todos.query';
+import { Todo } from './../state/todo.model';
 import { TodosService } from './../state/todos.service';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todos-page',
@@ -7,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todos-page.component.scss']
 })
 export class TodosPageComponent implements OnInit {
+  todos$: Observable<Todo[]>;
 
-  constructor(private todosService: TodosService) { }
+  constructor(private todosService: TodosService, private todosQuery: TodosQuery) { }
 
   ngOnInit() {
+    this.todos$ = this.todosQuery.selectAll();
   }
 
   addTodo(input: HTMLInputElement) {
