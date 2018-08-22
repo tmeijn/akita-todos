@@ -1,19 +1,26 @@
 import { Todo } from './state/todo.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ID } from '@datorama/akita';
 
 @Component({
   selector: 'app-todo',
   template: `
-  <label class="panel-block text" [ngStyle]="!astItem && { 'border-top': 'none' }">
-    <input type="checkbox">
-    {{ todo.title }}
+  <label class="panel-block" [ngStyle]="{ 'border-top': 'none' }">
+    <a (click)="delete.emit(todo.id)" style="margin-right: .8rem">
+      <span class="icon has-text-danger is-large">
+        <i class="fas fa-lg fa-trash-alt" aria-hidden="true"></i>
+      </span>
+    </a>
+  <input type="checkbox">
+  {{ todo.title }}
   </label>
   `,
   styles: []
 })
 export class TodoComponent implements OnInit {
   @Input() todo: Todo;
-  @Input() lastItem: boolean;
+
+  @Output() delete = new EventEmitter<ID>();
 
   constructor() { }
 

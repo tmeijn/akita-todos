@@ -18,11 +18,22 @@ export class TodosPageComponent implements OnInit {
     this.todos$ = this.todosQuery.selectAll();
   }
 
-  addTodo(input: HTMLInputElement) {
+  /**
+   * Sends the todo value to the TodosService
+   * @param {string} input The input element
+   *
+   */
+  public addTodo(input: HTMLInputElement) {
     // tslint:disable-next-line:curly
     if (input.value.length === 0) return;
     this.todosService.add(input.value);
     input.value = '';
   }
+
+  /*
+  *NOTE: to avoid code duplication, updating and deleting the todos is handled by TodosComponent
+  *
+  */
+
 
 }
