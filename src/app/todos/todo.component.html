@@ -13,6 +13,6 @@
     (keydown.enter)="updateTodo(updatedTitle.value)"
     >
   <ng-template #showTitle>
-    <p class="comp-todo-title"(click)="editTodo($event);">{{ todo.title }}</p>
+    <p class="comp-todo-title"(click)="editTodo($event);" [ngStyle]="todo.completed && {'text-decoration': 'line-through' }">{{ todo.title }}</p>
   </ng-template>
 </label>

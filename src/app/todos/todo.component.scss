@@ -1,7 +1,7 @@
 .comp-todo-title {
   display: inline-block;
   cursor: text;
-  width: 60%;
+  min-width: 60%;
   z-index: 999;
   transition: all .2s;
 
@@ -23,7 +23,8 @@
 	padding: 9px;
 	border-radius: 3px;
 	display: inline-block;
-	position: relative;
+  position: relative;
+  cursor: pointer;
 }
 
 .regular-checkbox:active, .regular-checkbox:checked:active {

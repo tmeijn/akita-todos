@@ -9,20 +9,29 @@ import {
   ViewChild,
   HostListener,
   OnDestroy,
+  HostBinding,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ID } from '@datorama/akita';
 
 import { Todo } from './state/todo.model';
 import { Subscription } from 'rxjs';
+import { messageAnimation } from '../_shared/animations';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[@messageAnimation]': '',
+    'style' : 'display: block;'
+ },
+  animations: [ messageAnimation ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoComponent implements OnInit, OnDestroy {
+
   @Input() todo: Todo;
   @Output() delete = new EventEmitter<ID>();
   @Output() update = new EventEmitter<Todo>();

@@ -1,3 +1,4 @@
+import { userPageAnimation, messageAnimation } from './../_shared/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { ID } from '@datorama/akita';
 
@@ -8,14 +9,12 @@ import { TodosService } from './state/todos.service';
   selector: 'app-todos',
   template: `
     <div class="panel">
-
-
       <p class="panel-heading" *ngIf="countTodo !== 0; else noTodo">Current Todos: {{ countTodo }}</p>
       <ng-template #noTodo>
       <p class="panel-heading">No todos! Add todos by using the textbox above.</p>
       </ng-template>
       <app-todo
-        *ngFor="let todo of todos;"
+        *ngFor="let todo of todos; trackBy: trackByFn"
         [todo]="todo"
         (delete)="deleteTodo($event)"
         (update)="updateTodo($event)"
@@ -39,6 +38,10 @@ export class TodosComponent implements OnInit {
 
   updateTodo(todo: Todo): void {
     this.todosService.update(todo);
+  }
+
+  trackByFn(index, item) {
+    return item.id;
   }
 
   get countTodo(): number {
