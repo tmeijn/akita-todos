@@ -12,7 +12,8 @@ import { TodosService } from './state/todos.service';
       <app-todo
         *ngFor="let todo of todos;"
         [todo]="todo"
-        (delete)="deleteTodo($event)">
+        (delete)="deleteTodo($event)"
+        (update)="updateTodo($event)">
       </app-todo>
     </div>
   `,
@@ -28,6 +29,10 @@ export class TodosComponent implements OnInit {
 
   deleteTodo(id: ID): void {
     this.todosService.delete(id);
+  }
+
+  updateTodo(todo: Todo): void {
+    this.todosService.update(todo);
   }
 
 }

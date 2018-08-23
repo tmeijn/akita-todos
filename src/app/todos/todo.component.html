@@ -1,0 +1,17 @@
+<label class="panel-block" [ngStyle]="{ 'border-top': 'none' }">
+  <a (click)="delete.emit(todo.id)" style="margin-right: .8rem">
+    <span class="icon has-text-danger is-large">
+      <i class="fas fa-lg fa-trash-alt" aria-hidden="true"></i>
+    </span>
+  </a>
+  <input type="checkbox">
+  <input #updatedTitle 
+    type="text" 
+    value="{{ todo.title }}" 
+    *ngIf="isEditing; else showTitle"
+    (keydown.enter)="updateTodo(updatedTitle.value)"
+    >
+  <ng-template #showTitle>
+    <p class="comp-todo-title"(click)="editTodo($event);">{{ todo.title }}</p>
+  </ng-template>
+</label>
