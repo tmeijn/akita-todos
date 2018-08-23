@@ -8,12 +8,18 @@ import { TodosService } from './state/todos.service';
   selector: 'app-todos',
   template: `
     <div class="panel">
-      <p class="panel-heading">Current Todos</p>
+
+
+      <p class="panel-heading" *ngIf="countTodo !== 0; else noTodo">Current Todos: {{ countTodo }}</p>
+      <ng-template #noTodo>
+      <p class="panel-heading">No todos! Add todos by using the textbox above.</p>
+      </ng-template>
       <app-todo
         *ngFor="let todo of todos;"
         [todo]="todo"
         (delete)="deleteTodo($event)"
-        (update)="updateTodo($event)">
+        (update)="updateTodo($event)"
+        (complete)="updateTodo($event)">
       </app-todo>
     </div>
   `,
@@ -33,6 +39,10 @@ export class TodosComponent implements OnInit {
 
   updateTodo(todo: Todo): void {
     this.todosService.update(todo);
+  }
+
+  get countTodo(): number {
+    return this.todos.length;
   }
 
 }

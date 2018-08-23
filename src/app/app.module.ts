@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [

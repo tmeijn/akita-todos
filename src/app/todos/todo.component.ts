@@ -8,34 +8,31 @@ import {
   Output,
   ViewChild,
   HostListener,
+  OnDestroy,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ID } from '@datorama/akita';
 
 import { Todo } from './state/todo.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styles: [`
-
-  .comp-todo-title {
-    display: inline-block;
-    cursor: text;
-    width: 100%;
-    z-index: 999;
-  }
-
-  `],
+  styleUrls: ['./todo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent implements OnInit, OnDestroy {
   @Input() todo: Todo;
   @Output() delete = new EventEmitter<ID>();
   @Output() update = new EventEmitter<Todo>();
+  @Output() complete = new EventEmitter<Todo>();
 
   @ViewChild('updatedTitle') input: ElementRef;
 
   isEditing = false;
+  control: FormControl;
+  subscription: Subscription;
 
   @HostListener('document:click', ['$event']) clickedOutside($event) {
     this.isEditing = false;
@@ -55,7 +52,17 @@ export class TodoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.control = new FormControl(this.todo.completed);
+
+    this.subscription = this.control.valueChanges.subscribe((completed: boolean) => {
+      this.complete.emit({ ...this.todo, completed});
+    });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 
   editTodo($event: Event) {
     $event.preventDefault();
