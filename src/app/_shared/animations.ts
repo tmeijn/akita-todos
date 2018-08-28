@@ -18,9 +18,9 @@ export const fadeInAnimation: AnimationMetadata =
     ]),
   ]);
 
-export const messageAnimation: AnimationMetadata =
+export const todoAnimation: AnimationMetadata =
 
-  trigger('messageAnimation', [
+  trigger('todoAnimation', [
     // route 'enter' transition
     transition(':enter', [
       // css styles at start of transition

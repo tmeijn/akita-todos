@@ -1,4 +1,3 @@
-import { userPageAnimation, messageAnimation } from './../_shared/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { ID } from '@datorama/akita';
 

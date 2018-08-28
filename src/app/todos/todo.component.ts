@@ -16,7 +16,7 @@ import { ID } from '@datorama/akita';
 
 import { Todo } from './state/todo.model';
 import { Subscription } from 'rxjs';
-import { messageAnimation } from '../_shared/animations';
+import { todoAnimation } from '../_shared/animations';
 
 @Component({
   selector: 'app-todo',
@@ -24,10 +24,10 @@ import { messageAnimation } from '../_shared/animations';
   styleUrls: ['./todo.component.scss'],
   // tslint:disable-next-line:use-host-property-decorator
   host: {
-    '[@messageAnimation]': '',
+    '[@todoAnimation]': '',
     'style' : 'display: block;'
  },
-  animations: [ messageAnimation ],
+  animations: [ todoAnimation ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoComponent implements OnInit, OnDestroy {
