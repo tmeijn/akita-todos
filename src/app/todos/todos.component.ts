@@ -1,30 +1,21 @@
+import { foldAnimationFunction } from './../_shared/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { ID } from '@datorama/akita';
+import { AnimationEvent } from '@angular/animations';
 
 import { Todo } from './state/todo.model';
 import { TodosService } from './state/todos.service';
 
 @Component({
   selector: 'app-todos',
-  template: `
-    <div class="panel">
-      <p class="panel-heading" *ngIf="countTodo !== 0; else noTodo">Current Todos: {{ countTodo }}</p>
-      <ng-template #noTodo>
-      <p class="panel-heading">No todos! Add todos by using the textbox above.</p>
-      </ng-template>
-      <app-todo
-        *ngFor="let todo of todos; trackBy: trackByFn"
-        [todo]="todo"
-        (delete)="deleteTodo($event)"
-        (update)="updateTodo($event)"
-        (complete)="updateTodo($event)">
-      </app-todo>
-    </div>
-  `,
-  styles: []
+  templateUrl: './todos.component.html',
+  animations: [ foldAnimationFunction('app-todo') ]
 })
 export class TodosComponent implements OnInit {
   @Input() todos: Todo[];
+
+  animationState: 'folded' | 'unfolded' = 'unfolded';
+  childState: 'folded' | 'unfolded' | undefined = 'unfolded';
 
   constructor(private todosService: TodosService) { }
 
@@ -33,6 +24,33 @@ export class TodosComponent implements OnInit {
 
   deleteTodo(id: ID): void {
     this.todosService.delete(id);
+  }
+
+  handleChildAnimationState(event: AnimationEvent): void {
+    const endState = event.toState;
+
+    console.log('Animation Handler gets called with:', endState);
+
+
+    switch (endState) {
+      case 'folded':
+        this.childState = 'folded';
+        break;
+      case 'unfolded':
+        this.childState = undefined;
+        break;
+    }
+  }
+
+  toggleFoldedState(): void {
+    switch (this.animationState) {
+      case 'folded':
+        this.animationState = 'unfolded';
+        break;
+      case 'unfolded':
+        this.animationState = 'folded';
+        break;
+    }
   }
 
   updateTodo(todo: Todo): void {

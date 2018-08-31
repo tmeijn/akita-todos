@@ -1,0 +1,19 @@
+<div class="panel">
+  <p class="panel-heading" *ngIf="countTodo !== 0; else noTodo">
+    Current Todos: {{ countTodo }}
+    <a class="btn is-link" (click)="toggleFoldedState()">Toggle animation state</a>
+  </p>
+  <ng-template #noTodo>
+    <p class="panel-heading">No todos! Add todos by using the textbox above.</p>
+  </ng-template>
+  <div [@foldAnimation]="animationState" (@foldAnimation.start)="handleChildAnimationState($event)">
+    <app-todo
+    [@foldChildAnimation]="childState"
+    *ngFor="let todo of todos; trackBy: trackByFn" 
+    [todo]="todo" 
+    (delete)="deleteTodo($event)" 
+    (update)="updateTodo($event)"
+    (complete)="updateTodo($event)">
+  </app-todo>
+</div>
+</div>

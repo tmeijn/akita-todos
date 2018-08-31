@@ -1,4 +1,4 @@
-import { trigger, state, animate, transition, style, AnimationMetadata, query, stagger } from '@angular/animations';
+import { trigger, state, animate, transition, style, AnimationMetadata, query, stagger, animateChild } from '@angular/animations';
 
 /**
  * ROUTER ANIMATIONS
@@ -39,9 +39,9 @@ export const userPageAnimation: AnimationMetadata =
       query(':enter', [
         style({ opacity: 0, transform: 'translateY(-15px)' }),
         stagger('50ms',
-        // End animation
-        animate('550ms ease-out',
-        style({ opacity: 1, transform: 'translateY(0px)' })))
+          // End animation
+          animate('550ms ease-out',
+            style({ opacity: 1, transform: 'translateY(0px)' })))
       ], { optional: true }),
       query(':leave', animate('50ms', style({ opacity: 0 })), { optional: true })
     ])
@@ -50,3 +50,39 @@ export const userPageAnimation: AnimationMetadata =
 /**
  * NoOp
  */
+
+// export const foldAnimation: AnimationMetadata =
+//   trigger('foldAnimation', [
+//     state('folded', style({
+//       height: '0px',
+//     })),
+//     state('unfolded', style({
+//       height: '*',
+//     })),
+//     transition('folded <=> unfolded', query('.panel-block', [
+//       stagger('50ms', animate('2s ease-out'))
+//     ]))
+//   ]);
+
+export function foldAnimationFunction(selector): AnimationMetadata[] {
+  return [trigger('foldAnimation', [
+    transition('unfolded => folded', [
+      query(`${selector}, ${selector} > *`, [
+        style({ overflow: 'hidden', display: 'block' }),
+        stagger(50,
+          animate('300ms 0ms ease-in-out', style({ height: '0px' })))
+      ])
+    ]),
+    transition('folded => unfolded', [
+      query(`${selector}, ${selector} > *`, [
+        style({ overflow: 'hidden', display: 'block', height: '0px' }),
+        stagger(50,
+          animate('300ms 0ms ease-in-out', style({ height: '*' })))
+      ])
+    ])
+  ]),
+  trigger('foldChildAnimation', [
+    // state('unfolded', style({ opacity: 1, height: '*' })),
+    state('folded', style({ overflow: 'hidden', height: '0px' }))
+  ])];
+}
