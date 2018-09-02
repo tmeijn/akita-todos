@@ -1,4 +1,4 @@
-import { foldAnimationFunction } from './../_shared/animations';
+import { foldListAnimation } from './../_shared/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { ID } from '@datorama/akita';
 import { AnimationEvent } from '@angular/animations';
@@ -9,13 +9,12 @@ import { TodosService } from './state/todos.service';
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
-  animations: [ foldAnimationFunction('app-todo') ]
+  animations: [ foldListAnimation ]
 })
 export class TodosComponent implements OnInit {
   @Input() todos: Todo[];
 
-  animationState: 'folded' | 'unfolded' = 'unfolded';
-  childState: 'folded' | 'unfolded' | undefined = 'unfolded';
+  showList = true;
 
   constructor(private todosService: TodosService) { }
 
@@ -26,31 +25,8 @@ export class TodosComponent implements OnInit {
     this.todosService.delete(id);
   }
 
-  handleChildAnimationState(event: AnimationEvent): void {
-    const endState = event.toState;
-
-    console.log('Animation Handler gets called with:', endState);
-
-
-    switch (endState) {
-      case 'folded':
-        this.childState = 'folded';
-        break;
-      case 'unfolded':
-        this.childState = undefined;
-        break;
-    }
-  }
-
   toggleFoldedState(): void {
-    switch (this.animationState) {
-      case 'folded':
-        this.animationState = 'unfolded';
-        break;
-      case 'unfolded':
-        this.animationState = 'folded';
-        break;
-    }
+    this.showList = this.showList === true ? false : true;
   }
 
   updateTodo(todo: Todo): void {

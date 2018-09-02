@@ -26,10 +26,10 @@ export const todoAnimation: AnimationMetadata =
       // css styles at start of transition
       style({ opacity: 0 }),
       // animation and styles at end of transition
-      animate('.1s', style({ opacity: 1 }))
+      animate('.3s', style({ opacity: 1 }))
     ]),
     transition(':leave', [
-      animate('.1s', style({ opacity: 0, height: 0 }))
+      animate('.3s', style({ opacity: 0, height: 0 }))
     ])
   ]);
 
@@ -47,42 +47,18 @@ export const userPageAnimation: AnimationMetadata =
     ])
   ]);
 
-/**
- * NoOp
- */
-
-// export const foldAnimation: AnimationMetadata =
-//   trigger('foldAnimation', [
-//     state('folded', style({
-//       height: '0px',
-//     })),
-//     state('unfolded', style({
-//       height: '*',
-//     })),
-//     transition('folded <=> unfolded', query('.panel-block', [
-//       stagger('50ms', animate('2s ease-out'))
-//     ]))
-//   ]);
-
-export function foldAnimationFunction(selector): AnimationMetadata[] {
-  return [trigger('foldAnimation', [
-    transition('unfolded => folded', [
-      query(`${selector}, ${selector} > *`, [
+export const foldListAnimation: AnimationMetadata =
+  trigger('foldListAnimation', [
+    transition('* => *', [
+      query(`:leave`, [
         style({ overflow: 'hidden', display: 'block' }),
         stagger(50,
           animate('300ms 0ms ease-in-out', style({ height: '0px' })))
-      ])
-    ]),
-    transition('folded => unfolded', [
-      query(`${selector}, ${selector} > *`, [
+      ], { optional: true }),
+      query(`:enter`, [
         style({ overflow: 'hidden', display: 'block', height: '0px' }),
         stagger(50,
           animate('300ms 0ms ease-in-out', style({ height: '*' })))
-      ])
+      ], { optional: true })
     ])
-  ]),
-  trigger('foldChildAnimation', [
-    // state('unfolded', style({ opacity: 1, height: '*' })),
-    state('folded', style({ overflow: 'hidden', height: '0px' }))
-  ])];
-}
+  ]);
