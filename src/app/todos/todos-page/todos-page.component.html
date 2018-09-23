@@ -3,6 +3,19 @@
   <input type="text" class="input" placeholder="Add a todo..." #input (keydown.enter)="addTodo(input)">
 </div>
 
+<div class="columns">
+  <div class="column">
+    <div class="control">
+      <div class="select is-rounded" style="width: 100%">
+        <select  style="width: 100%">
+          <option>Rounded dropdown</option>
+          <option>With options</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
 <app-todos [todos]="todos$ | async"></app-todos>
 
 <p>Some footer text</p>

@@ -8,7 +8,10 @@ import { State, TodosStore } from './todos.store';
   providedIn: 'root'
 })
 export class TodosQuery extends QueryEntity<State, Todo> {
+  selectListState$ = this.store._select(state => state.ui.showList);
+  
   constructor(protected store: TodosStore) {
     super(store);
   }
+
 }

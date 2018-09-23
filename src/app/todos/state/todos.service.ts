@@ -22,4 +22,9 @@ export class TodosService {
   update(todo: Todo): void {
     this.todosStore.update(todo.id, {...todo});
   }
+
+  showList(value) {
+    this.todosStore.updateListState(value);
+  }
+
 }
